@@ -1,0 +1,279 @@
+.overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-modal {
+  background-color: rgb(230, 230, 230);
+  height: 30%;
+  width: 30%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-btn {
+  background-color: rgb(145, 225, 145);
+}
+
+.start-modal p {
+  font-style: italic;
+  color: rgb(75, 75, 75);
+}
+
+button:hover:enabled {
+  border: 1px solid rgb(160, 160, 160);
+}
+
+button:disabled,
+button:disabled:hover {
+  border: 1px solid transparent;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  border: 1px solid rgb(160, 160, 160);
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(160, 160, 160);
+  border-radius: 10px;
+}
+
+.game-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+}
+
+.volume-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0.5rem;
+}
+
+.volume-label {
+  font-size: 1.2rem;
+}
+
+.pattern-display-container {
+  margin: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-bottom: 1px solid black;
+}
+
+.pattern-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.pattern-display img {
+  width: 12rem;
+  height: 12rem;
+  object-fit: contain;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* https://projects.verou.me/bubbly/ */
+.bird-bubble {
+  position: relative;
+  background: rgb(0, 0, 0, 0.1);
+  border-radius: 0.4em;
+  min-width: 15rem;
+  padding: 1rem;
+}
+
+.bird-bubble:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-right-color: rgb(0, 0, 0, 0.1);
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -12.5px;
+  margin-left: -25px;
+}
+
+.user-bubble {
+  position: relative;
+  background: rgb(0, 0, 0, 0.1);
+  /* background: rgb(145, 225, 145); */
+  border-radius: 0.4em;
+  min-width: 15rem;
+  padding: 1rem;
+}
+
+.user-bubble:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 25px solid transparent;
+  border-left-color: rgb(0, 0, 0, 0.1);
+  /* border-left-color: rgb(145, 225, 145); */
+  border-right: 0;
+  border-bottom: 0;
+  margin-top: -12.5px;
+  margin-right: -25px;
+}
+
+.pattern {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.replay-btn {
+  min-width: 10rem;
+}
+
+.replay-btn .key-hint {
+  font-family: monospace;
+  background-color: rgb(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+}
+
+.pattern-boxes {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.pattern-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid rgb(75, 75, 75);
+  border-radius: 8px;
+  font-size: 2.8rem;
+  background-color: rgb(255, 255, 255, 0.75);
+}
+
+.pattern-box.empty {
+  border-style: dashed;
+}
+
+/* .pattern-box.filled {
+} */
+
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.flower-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.flower-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  background-color: rgb(230, 230, 230);
+}
+
+.flower-btn:focus {
+  outline: 1px solid rgb(160, 160, 160);
+}
+
+.flower-btn.flower-0 {
+  background-color: rgba(255, 167, 192, 0.2);
+}
+
+.flower-btn.flower-1 {
+  background-color: rgba(137, 103, 170, 0.2);
+}
+
+.flower-btn.flower-2 {
+  background-color: rgba(241, 179, 28, 0.2);
+}
+
+.flower-btn.flower-locked {
+  background-color: rgb(230, 230, 230);
+  filter: grayscale(100%);
+}
+
+.flower-icon {
+  font-size: 2rem;
+}
+
+.flower-btn .key-hint {
+  font-family: monospace;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.clear-btn {
+  background-color: rgb(180, 112, 112);
+}
+
+.undo-btn {
+  background-color: rgb(200, 200, 200);
+}
+
+.send-btn {
+  background-color: rgb(145, 225, 145);
+}
+
+.action-buttons .key-hint {
+  font-family: monospace;
+  background-color: rgb(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+}
