@@ -130,10 +130,14 @@ const MainGame = () => {
   );
 
   const handleSend = useCallback(() => {
+    const isRightLength = targetPattern.length === userPattern.length;
+
+    if (!isRightLength) return;
+
     if (isPlaying) stopAllAudio();
 
     const isCorrect =
-      targetPattern.length === userPattern.length &&
+      isRightLength &&
       targetPattern.every((flower, index) => flower === userPattern[index]);
 
     if (isCorrect) {
