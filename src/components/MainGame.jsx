@@ -4,14 +4,18 @@ import "./MainGame.css";
 import flowerSound1 from "../assets/sounds/flower1.mp3";
 import flowerSound2 from "../assets/sounds/flower2.mp3";
 import flowerSound3 from "../assets/sounds/flower3.mp3";
+import flowerSound4 from "../assets/sounds/flower4.mp3";
+import flowerSound5 from "../assets/sounds/flower5.mp3";
 
 import bird from "../assets/bird_openmoji.png";
 
-const FLOWERS = ["🌸", "🪻", "🌼"];
+const FLOWERS = ["🌸", "🌼", "🪻", "🌹", "🌷"];
 const AUDIO_FILES = {
   "🌸": flowerSound1,
-  "🪻": flowerSound2,
   "🌼": flowerSound3,
+  "🪻": flowerSound2,
+  "🌹": flowerSound4,
+  "🌷": flowerSound5,
 };
 const PATTERN_DELAY = 800;
 
@@ -23,7 +27,8 @@ const MainGame = () => {
   // TODO: change to a lower/upper range instead.
   // or don't! fix the lengthier patterns.
   const [maxPatternLength, setMaxPatternLength] = useState(1);
-  const [unlockedFlowers, setUnlockedFlowers] = useState([FLOWERS[0]]);
+  // const [unlockedFlowers, setUnlockedFlowers] = useState([FLOWERS[0]]);
+  const [unlockedFlowers, _setUnlockedFlowers] = useState(FLOWERS);
   const [numCompleted, setNumCompleted] = useState(0);
 
   const [targetPattern, setTargetPattern] = useState([]);
@@ -33,7 +38,7 @@ const MainGame = () => {
 
   const playNextPattern = useRef(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(5);
+  const [volume, setVolume] = useState(4);
 
   const [audioCache] = useState(() => {
     const cache = {};
@@ -130,10 +135,13 @@ const MainGame = () => {
   );
 
   const handleSend = useCallback(() => {
+    const isRightLength = targetPattern.length === userPattern.length;
+
+    if (!isRightLength) return;
     if (isPlaying) stopAllAudio();
 
     const isCorrect =
-      targetPattern.length === userPattern.length &&
+      isRightLength &&
       targetPattern.every((flower, index) => flower === userPattern[index]);
 
     if (isCorrect) {
@@ -141,11 +149,11 @@ const MainGame = () => {
       setNumCompleted(newNumCompleted);
 
       if (newNumCompleted === 5) {
-        setUnlockedFlowers([...unlockedFlowers, FLOWERS[1]]);
+        // setUnlockedFlowers([...unlockedFlowers, FLOWERS[1]]);
       } else if (newNumCompleted === 10) {
         setMaxPatternLength(2);
       } else if (newNumCompleted === 15) {
-        setUnlockedFlowers([...unlockedFlowers, FLOWERS[2]]);
+        // setUnlockedFlowers([...unlockedFlowers, FLOWERS[2]]);
       } else if (newNumCompleted === 25) {
         setMaxPatternLength(3);
       }
@@ -206,6 +214,10 @@ const MainGame = () => {
         handleFlowerClick(FLOWERS[1]);
       } else if (key === "f") {
         handleFlowerClick(FLOWERS[2]);
+      } else if (key === "k") {
+        handleFlowerClick(FLOWERS[3]);
+      } else if (key === "l") {
+        handleFlowerClick(FLOWERS[4]);
       } else if (key === "r") {
         handleReplayPattern();
       } else if (key === "enter") {
@@ -245,6 +257,7 @@ const MainGame = () => {
       )}
       <div className="game-container">
         <div className="game-header">
+          <span>Correct: {numCompleted}</span>
           <div className="volume-container">
             <span className="volume-label">🔊</span>
             <input
@@ -320,7 +333,9 @@ const MainGame = () => {
                 disabled={!unlockedFlowers.includes(flower)}
               >
                 <div className="flower-icon">{flower}</div>
-                <div className="key-hint">{["S", "D", "F"][index]}</div>
+                <div className="key-hint">
+                  {["S", "D", "F", "K", "L"][index]}
+                </div>
               </button>
             ))}
           </div>
