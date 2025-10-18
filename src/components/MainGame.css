@@ -246,6 +246,14 @@ button:focus-visible {
   background-color: rgba(226, 112, 34, 0.2);
 }
 
+.flower-btn.flower-3 {
+  background-color: rgba(210, 47, 39, 0.2);
+}
+
+.flower-btn.flower-4 {
+  background-color: rgba(226, 112, 34, 0.2);
+}
+
 .flower-btn.flower-locked {
   background-color: rgb(230, 230, 230);
   filter: grayscale(100%);
