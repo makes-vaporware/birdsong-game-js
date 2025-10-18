@@ -9,11 +9,11 @@ import flowerSound5 from "../assets/sounds/flower5.mp3";
 
 import bird from "../assets/bird_openmoji.png";
 
-const FLOWERS = ["🌸", "🌼", "🪻", "🌹", "🌷"];
+const FLOWERS = ["🌸", "🪻", "🌼", "🌹", "🌷"];
 const AUDIO_FILES = {
   "🌸": flowerSound1,
-  "🌼": flowerSound3,
   "🪻": flowerSound2,
+  "🌼": flowerSound3,
   "🌹": flowerSound4,
   "🌷": flowerSound5,
 };
@@ -26,9 +26,8 @@ const MainGame = () => {
 
   // TODO: change to a lower/upper range instead.
   // or don't! fix the lengthier patterns.
-  const [maxPatternLength, setMaxPatternLength] = useState(1);
-  // const [unlockedFlowers, setUnlockedFlowers] = useState([FLOWERS[0]]);
-  const [unlockedFlowers, _setUnlockedFlowers] = useState(FLOWERS);
+  const [patternLength, setPatternLength] = useState([1, 1]);
+  const [unlockedFlowers, setUnlockedFlowers] = useState([FLOWERS[0]]);
   const [numCompleted, setNumCompleted] = useState(0);
 
   const [targetPattern, setTargetPattern] = useState([]);
@@ -73,14 +72,16 @@ const MainGame = () => {
   }, [audioCache]);
 
   const generateNewPattern = useCallback(() => {
-    const length = Math.floor(Math.random() * maxPatternLength) + 1;
+    const length =
+      Math.floor(Math.random() * (patternLength[1] - patternLength[0] + 1)) +
+      patternLength[0];
     const pattern = Array.from(
       { length },
       () => FLOWERS[Math.floor(Math.random() * unlockedFlowers.length)]
     );
     setTargetPattern(pattern);
     setUserPattern([]);
-  }, [maxPatternLength, unlockedFlowers.length]);
+  }, [patternLength, unlockedFlowers.length]);
 
   const playFlowerSound = useCallback(
     (flower) => {
@@ -149,13 +150,21 @@ const MainGame = () => {
       setNumCompleted(newNumCompleted);
 
       if (newNumCompleted === 5) {
-        // setUnlockedFlowers([...unlockedFlowers, FLOWERS[1]]);
+        setUnlockedFlowers((prev) => [...prev, FLOWERS[1]]);
       } else if (newNumCompleted === 10) {
-        setMaxPatternLength(2);
+        setPatternLength([1, 2]);
       } else if (newNumCompleted === 15) {
-        // setUnlockedFlowers([...unlockedFlowers, FLOWERS[2]]);
+        setUnlockedFlowers((prev) => [...prev, FLOWERS[2]]);
       } else if (newNumCompleted === 25) {
-        setMaxPatternLength(3);
+        setPatternLength([1, 3]);
+      } else if (newNumCompleted === 30) {
+        setUnlockedFlowers((prev) => [...prev, FLOWERS[3]]);
+      } else if (newNumCompleted === 35) {
+        setPatternLength([2, 3]);
+      } else if (newNumCompleted === 40) {
+        setUnlockedFlowers((prev) => [...prev, FLOWERS[4]]);
+      } else if (newNumCompleted === 45) {
+        setPatternLength([3, 3]);
       }
 
       playNextPattern.current = true;
@@ -171,7 +180,6 @@ const MainGame = () => {
     userPattern,
     numCompleted,
     generateNewPattern,
-    unlockedFlowers,
   ]);
 
   const handleUndo = useCallback(() => {
@@ -214,9 +222,9 @@ const MainGame = () => {
         handleFlowerClick(FLOWERS[1]);
       } else if (key === "f") {
         handleFlowerClick(FLOWERS[2]);
-      } else if (key === "k") {
+      } else if (key === "g") {
         handleFlowerClick(FLOWERS[3]);
-      } else if (key === "l") {
+      } else if (key === "h") {
         handleFlowerClick(FLOWERS[4]);
       } else if (key === "r") {
         handleReplayPattern();
@@ -334,7 +342,7 @@ const MainGame = () => {
               >
                 <div className="flower-icon">{flower}</div>
                 <div className="key-hint">
-                  {["S", "D", "F", "K", "L"][index]}
+                  {["S", "D", "F", "G", "H"][index]}
                 </div>
               </button>
             ))}
