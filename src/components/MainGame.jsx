@@ -6,12 +6,15 @@ import flowerSound2 from "../assets/sounds/flower2.mp3";
 import flowerSound3 from "../assets/sounds/flower3.mp3";
 import flowerSound4 from "../assets/sounds/flower4.mp3";
 import flowerSound5 from "../assets/sounds/flower5.mp3";
+import flowerSound4 from "../assets/sounds/flower4.mp3";
+import flowerSound5 from "../assets/sounds/flower5.mp3";
 
 import bird from "../assets/bird_openmoji.png";
 
 const FLOWERS = ["🌸", "🪻", "🌼", "🌹", "🌷"];
 const AUDIO_FILES = {
   "🌸": flowerSound1,
+  "🌼": flowerSound3,
   "🪻": flowerSound2,
   "🌼": flowerSound3,
   "🌹": flowerSound4,
@@ -37,6 +40,7 @@ const MainGame = () => {
 
   const playNextPattern = useRef(true);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(4);
   const [volume, setVolume] = useState(4);
 
   const [audioCache] = useState(() => {
@@ -139,9 +143,13 @@ const MainGame = () => {
     const isRightLength = targetPattern.length === userPattern.length;
 
     if (!isRightLength) return;
+    const isRightLength = targetPattern.length === userPattern.length;
+
+    if (!isRightLength) return;
     if (isPlaying) stopAllAudio();
 
     const isCorrect =
+      isRightLength &&
       isRightLength &&
       targetPattern.every((flower, index) => flower === userPattern[index]);
 
@@ -265,6 +273,7 @@ const MainGame = () => {
       )}
       <div className="game-container">
         <div className="game-header">
+          <span>Correct: {numCompleted}</span>
           <span>Correct: {numCompleted}</span>
           <div className="volume-container">
             <span className="volume-label">🔊</span>
