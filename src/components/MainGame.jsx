@@ -135,6 +135,24 @@ const MainGame = () => {
     [targetPattern.length, unlockedFlowers, userPattern]
   );
 
+  const showFeedback = (emoji) => {
+    const patternBirdElement = document.getElementById("pattern-bird");
+    const rect = patternBirdElement.getBoundingClientRect();
+    const container = document.getElementById("feedback-container");
+
+    const emojiElement = document.createElement("div");
+    emojiElement.textContent = emoji;
+    emojiElement.className = "feedback-emoji";
+    emojiElement.style.top = `${rect.top - 20}px`;
+    emojiElement.style.left = `${(rect.left + rect.right) / 2 - 16}px`;
+
+    container.appendChild(emojiElement);
+
+    setTimeout(() => {
+      emojiElement.remove();
+    }, 1000);
+  };
+
   const handleSend = useCallback(() => {
     const isRightLength = targetPattern.length === userPattern.length;
 
@@ -146,6 +164,7 @@ const MainGame = () => {
       targetPattern.every((flower, index) => flower === userPattern[index]);
 
     if (isCorrect) {
+      showFeedback("🥰");
       const newNumCompleted = numCompleted + 1;
       setNumCompleted(newNumCompleted);
 
@@ -170,7 +189,7 @@ const MainGame = () => {
       playNextPattern.current = true;
       generateNewPattern();
     } else {
-      // handleReplayPattern();
+      showFeedback("😢");
       setUserPattern([]);
     }
   }, [
@@ -264,6 +283,7 @@ const MainGame = () => {
         </div>
       )}
       <div className="game-container">
+        <div id="feedback-container" />
         <div className="game-header">
           <span>Correct: {numCompleted}</span>
           <div className="volume-container">
@@ -285,7 +305,8 @@ const MainGame = () => {
             <img
               style={{ filter: `hue-rotate(${birdHue}deg)` }}
               src={bird}
-              alt="bird"
+              id="pattern-bird"
+              alt="pattern-bird"
             />
             <div className="bird-bubble">
               <div className="pattern">
@@ -324,7 +345,8 @@ const MainGame = () => {
             <img
               style={{ filter: `hue-rotate(140deg)` }}
               src={bird}
-              alt="bird"
+              id="user-bird"
+              alt="user-bird"
             />
           </div>
         </div>

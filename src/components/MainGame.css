@@ -130,7 +130,6 @@ button:focus-visible {
 .user-bubble {
   position: relative;
   background: rgb(0, 0, 0, 0.1);
-  /* background: rgb(145, 225, 145); */
   border-radius: 0.4em;
   min-width: 15rem;
   padding: 1rem;
@@ -145,7 +144,6 @@ button:focus-visible {
   height: 0;
   border: 25px solid transparent;
   border-left-color: rgb(0, 0, 0, 0.1);
-  /* border-left-color: rgb(145, 225, 145); */
   border-right: 0;
   border-bottom: 0;
   margin-top: -12.5px;
@@ -231,19 +229,11 @@ button:focus-visible {
 }
 
 .flower-btn.flower-1 {
-  background-color: rgba(241, 179, 28, 0.2);
-}
-
-.flower-btn.flower-2 {
   background-color: rgba(137, 103, 170, 0.2);
 }
 
-.flower-btn.flower-3 {
-  background-color: rgba(210, 47, 39, 0.2);
-}
-
-.flower-btn.flower-4 {
-  background-color: rgba(226, 112, 34, 0.2);
+.flower-btn.flower-2 {
+  background-color: rgba(241, 179, 28, 0.2);
 }
 
 .flower-btn.flower-3 {
@@ -292,4 +282,25 @@ button:focus-visible {
   border-radius: 4px;
   padding: 0.2rem;
   margin-left: 0.5rem;
+}
+
+.feedback-container {
+  z-index: 1000;
+}
+
+.feedback-emoji {
+  position: absolute;
+  font-size: 2rem;
+  animation: float-up-fade 1s ease-out forwards;
+}
+
+@keyframes float-up-fade {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
 }
